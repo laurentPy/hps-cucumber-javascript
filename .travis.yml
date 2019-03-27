@@ -16,5 +16,8 @@ script:
 
 after_script:
   - hiptest-publisher -c cucumber-js.conf --token=$SECRET_TOKEN --push=junit_output.xml --test-run-id=16534
-
-
+  - |
+      curl -X POST https://livingdoc-jira-app.scalingo.io/connect/rest/api/r0esults \
+        -H 'authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJqaXJhOmQ3YTM3ZmI0LTY2ZDQtNDM4OS05MjRkLWZjMTY3N2RlZDBjOSIsImNvbnRleHQiOnsicHJvamVjdF9pZCI6IjEyMzY0IiwicmVwb3NpdG9yeV9uYW1lIjoibGF1cmVudFB5L2hwcy1jdWN1bWJlci1qYXZhc2NyaXB0In19.30ah_Lq6YLbJgufsKjet8TRPy7eDUy-AvsFDSeZfUsM' \
+        -H 'content-type: multipart/form-data' \
+        -F results_file=@results.json
